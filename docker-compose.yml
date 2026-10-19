@@ -1,0 +1,26 @@
+# Run the whole project with one command:  docker compose up --build
+# Backend  -> http://localhost:8000/docs      Frontend -> http://localhost:8501
+services:
+  backend:
+    build: .
+    image: term-project:latest
+    env_file: .env
+    environment:
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - app-data:/app/backend/data     # keeps comments and downloaded datasets
+
+  frontend:
+    image: term-project:latest
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8000   # service name works inside Docker's network
+    command: ["streamlit", "run", "frontend/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+
+volumes:
+  app-data:

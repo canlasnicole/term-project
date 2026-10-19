@@ -1,0 +1,19 @@
+# secrets and local environments
+.env
+.venv/
+venv/
+.streamlit/secrets.toml
+
+# Python cache
+__pycache__/
+*.pyc
+
+# downloaded data, databases, model weights (created automatically at runtime)
+backend/data/
+*.pt
+*.db
+
+# OS / editor files
+.DS_Store
+.vscode/
+.idea/
